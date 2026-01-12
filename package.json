@@ -1,0 +1,15 @@
+{
+  "name": "minicamp-osaka2026-ad",
+  "version": "1.0.0",
+  "description": "Slidev presentation for Security Camp 2026 Mini (Osaka) - Web Application A&D",
+  "scripts": {
+    "dev": "slidev",
+    "build": "slidev build",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^52.11.2",
+    "@slidev/theme-default": "latest",
+    "@slidev/theme-seriph": "latest"
+  }
+}
