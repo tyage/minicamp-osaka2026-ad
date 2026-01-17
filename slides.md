@@ -32,13 +32,12 @@ layout: intro
 
 # 自己紹介
 
-## 山崎 啓太郎 (Keitaro Yamazaki)
+## 山崎 啓太郎 (@tyage)
 
-- 京都大学情報学研究科修了
-- 大手ユーザ企業のプロダクトセキュリティ業務
-- 現在はセキュリティ企業にてWebペネトレーションテストやソースコード診断に従事
-- CTF実績: DEF CON CTF, Google CTF Finals 複数回出場, SECCON CTF 13 Finals 優勝等
-- 講師歴: セキュリティ・キャンプ全国大会 2022・2023 講師
+- 経歴
+  - 2010年 セキュリティ&プログラミングキャンプ卒業
+  - 2018年～2020年 LINE株式会社 アプリケーションセキュリティチーム
+  - 2020年～ GMOサイバーセキュリティ byイエラエ株式会社 高度診断部
 - 著書: 「実践 Webペネトレーションテスト」
   <br>
   <img src="https://images-na.ssl-images-amazon.com/images/P/4814401256.09.LZZZZZZZ.jpg" class="h-40 shadow-lg rounded" alt="Practical Web Penetration Test Cover"/>
@@ -55,6 +54,36 @@ layout: intro
 
 > [!IMPORTANT]
 > 実際の運用では「直しやすさ」だけでなく「ビジネスへの影響」や「対応の限界」を考慮する必要があります。
+
+---
+layout: center
+class: text-center
+---
+
+# Q. CTFに参加したことある人✋️
+
+---
+layout: center
+class: text-center
+---
+
+# Q. A&D形式のCTFに参加したことある人✋️
+
+---
+
+# CTF (Capture The Flag) とは？
+
+情報セキュリティ技術を競う競技
+
+- **目的**: 隠された「Flag（旗）」を見つけ出すこと
+- **主な形式**:
+  - **Jeopardy（ジョパディ）形式**:
+    - Web, Crypto, Pwn, Reversing... などカテゴリ別の問題を解く
+    - 最も一般的
+  - **Attack & Defense (A&D) 形式**:
+    - チームごとに守るべきサーバー/サービスがある
+    - 自チームを守りつつ、他チームを攻撃する
+    - **<span class="text-orange-400">今回の演習はこの形式！</span>**
 
 ---
 
