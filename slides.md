@@ -259,277 +259,231 @@ graph TD
 
 ---
 
-# A&Dの攻防フロー (1): 攻撃と提出 (Attack)
-
-1. **攻撃 (Exploit)**: 他チームの本番環境(Production)を攻撃
-2. **Flag奪取 (Get Flag)**: 脆弱性を突いてFlagを奪取
-3. **提出 (Submit)**: スコアサーバーに提出して得点
-
-<div class="flex justify-center items-start h-[600px] w-full scale-[0.9] origin-top">
-
-```mermaid
-graph LR
-    %% Corrected Three Towers Layout
-
-    subgraph MyTeam ["自チーム (Left)"]
-        direction TB
-        Player[<b>Player</b>]
-        Git[Gitサーバー]
-        Prod((自チーム本番))
-        Player --> Git --> Prod
-    end
-
-    subgraph Ops ["運営 (Center)"]
-        direction TB
-        Score[<b>Score Server</b>]
-        Bot[SLA Bot]
-        Score ~~~ Bot
-    end
-
-    subgraph RivalTeam ["他チーム (Right)"]
-        direction TB
-        Rival[<b>Rival</b>]
-        RivalGit[Gitサーバー]
-        RivalProd((ライバル本番))
-        Rival --> RivalGit --> RivalProd
-    end
-
-    %% STRICT ALIGNMENT
-    Player ~~~ Score ~~~ Rival
-
-    %% Attack Flows
-    Player -->|1. 攻撃| RivalProd
-    RivalProd -.->|2. Flag奪取| Player
-    Player -->|3. 提出| Score
-
-    %% Patch Flows
-    Player -->|1. Push| Git
-    Git -->|2. Deploy| Prod
-
-    %% Verify Flows
-    Player -->|1. 動作確認| Prod
-    Bot -->|2. 死活監視| Prod
-    Bot -.->|チェック| RivalProd
-
-    %% Context
-    Rival -.->|攻撃| Prod
-
-    classDef active fill:#fee,stroke:#f66,stroke-width:2px;
-    classDef inactive opacity:0.2;
-    classDef context opacity:0.4,stroke-dasharray: 5 5;
-    
-    class Player,RivalProd,Score active;
-    class Git,Prod,Bot,RivalGit inactive;
-    class Rival context;
-    
-    style MyTeam fill:#f0fff4,stroke:#bfb,stroke-dasharray: 5 5
-    style Ops fill:#f5faff,stroke:#cce,stroke-dasharray: 5 5
-    style RivalTeam fill:#fff5f5,stroke:#fcc,stroke-dasharray: 5 5
-
-    %% Active: Attack (7,8,9)
-    linkStyle 7,8,9 stroke:#f66,stroke-width:2px;
-    
-    %% Inactive: Internal, Alignment, Patch, Verify, Context
-    linkStyle 0,1,2,3,4,5,6,10,11,12,13,14,15 opacity:0.1;
-```
-</div>
-
----
-
-# A&Dの攻防フロー (2): 修正と反映 (Patch)
-
-1. **修正 (Push)**: 修正したコードをGitにPush ( `./patchable/` のみ)
-2. **反映 (Deploy)**: 自動で本番環境にデプロイされる (※数分かかります)
-
-<div class="flex justify-center items-start h-[600px] w-full scale-[0.9] origin-top">
-
-```mermaid
-graph LR
-    %% Corrected Three Towers Layout
-
-    subgraph MyTeam ["自チーム (Left)"]
-        direction TB
-        Player[<b>Player</b>]
-        Git[Gitサーバー]
-        Prod((自チーム本番))
-        Player --> Git --> Prod
-    end
-
-    subgraph Ops ["運営 (Center)"]
-        direction TB
-        Score[<b>Score Server</b>]
-        Bot[SLA Bot]
-        Score ~~~ Bot
-    end
-
-    subgraph RivalTeam ["他チーム (Right)"]
-        direction TB
-        Rival[<b>Rival</b>]
-        RivalGit[Gitサーバー]
-        RivalProd((ライバル本番))
-        Rival --> RivalGit --> RivalProd
-    end
-
-    %% STRICT ALIGNMENT
-    Player ~~~ Score ~~~ Rival
-
-    %% Attack Flows
-    Player -->|1. 攻撃| RivalProd
-    RivalProd -.->|2. Flag奪取| Player
-    Player -->|3. 提出| Score
-
-    %% Patch Flows
-    Player -->|1. Push| Git
-    Git -->|2. Deploy| Prod
-
-    %% Verify Flows
-    Player -->|1. 動作確認| Prod
-    Bot -->|2. 死活監視| Prod
-    Bot -.->|チェック| RivalProd
-
-    %% Context
-    Rival -.->|攻撃| Prod
-
-    classDef active fill:#eef,stroke:#66f,stroke-width:2px;
-    classDef inactive opacity:0.2;
-    classDef context opacity:0.4,stroke-dasharray: 5 5;
-    
-    class Player,Git,Prod active;
-    class Score,Bot,RivalProd,RivalGit inactive;
-    class Rival context;
-
-    style MyTeam fill:#f0fff4,stroke:#bfb,stroke-dasharray: 5 5
-    style Ops fill:#f5faff,stroke:#cce,stroke-dasharray: 5 5
-    style RivalTeam fill:#fff5f5,stroke:#fcc,stroke-dasharray: 5 5
-    
-    %% Active: Patch (10,11)
-    linkStyle 10,11 stroke:#66f,stroke-width:2px;
-    
-    %% Inactive: Others
-    linkStyle 0,1,2,3,4,5,6,7,8,9,12,13,14,15 opacity:0.1;
-```
-</div>
-
----
-
-# A&Dの攻防フロー (3): 確認と維持 (Verify)
-
-1. **動作確認 (Verify)**: 本番環境でパッチが正常に動くか確認
-2. **死活監視 (SLA Check)**: Botが本番環境を巡回し、正常性をチェック (落ちていると減点)
-
-<div class="flex justify-center items-start h-[600px] w-full scale-[0.9] origin-top">
-
-```mermaid
-graph LR
-    %% Corrected Three Towers Layout
-
-    subgraph MyTeam ["自チーム (Left)"]
-        direction TB
-        Player[<b>Player</b>]
-        Git[Gitサーバー]
-        Prod((自チーム本番))
-        Player --> Git --> Prod
-    end
-
-    subgraph Ops ["運営 (Center)"]
-        direction TB
-        Score[<b>Score Server</b>]
-        Bot[SLA Bot]
-        Score ~~~ Bot
-    end
-
-    subgraph RivalTeam ["他チーム (Right)"]
-        direction TB
-        Rival[<b>Rival</b>]
-        RivalGit[Gitサーバー]
-        RivalProd((ライバル本番))
-        Rival --> RivalGit --> RivalProd
-    end
-
-    %% STRICT ALIGNMENT
-    Player ~~~ Score ~~~ Rival
-
-    %% Attack Flows
-    Player -->|1. 攻撃| RivalProd
-    RivalProd -.->|2. Flag奪取| Player
-    Player -->|3. 提出| Score
-
-    %% Patch Flows
-    Player -->|1. Push| Git
-    Git -->|2. Deploy| Prod
-
-    %% Verify Flows
-    Player -->|1. 動作確認| Prod
-    Bot -->|2. 死活監視| Prod
-    Bot -.->|チェック| RivalProd
-
-    %% Context
-    Rival -.->|攻撃| Prod
-
-    classDef active fill:#efe,stroke:#3b3,stroke-width:2px;
-    classDef inactive opacity:0.2;
-    classDef context opacity:0.4,stroke-dasharray: 5 5;
-    
-    class Player,Prod,Bot active;
-    class Git,Score,RivalProd,RivalGit inactive;
-    class Rival context;
-
-    style MyTeam fill:#f0fff4,stroke:#bfb,stroke-dasharray: 5 5
-    style Ops fill:#f5faff,stroke:#cce,stroke-dasharray: 5 5
-    style RivalTeam fill:#fff5f5,stroke:#fcc,stroke-dasharray: 5 5
-    
-    %% Active: Verify (12,13,14)
-    linkStyle 12,13,14 stroke:#3b3,stroke-width:2px;
-    
-    %% Inactive: Others
-    linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,15 opacity:0.1;
-```
-</div>
-
----
-
-# Tick (Round) システム
+# ゲームの進行
 
 競技は **Tick（ラウンド）** 単位で進行します。
 
 
 
 - **一定時間ごとに 1 Tick 進行**
-- **各Tickの開始時**:
-  - 全サービスが自動的に再起動される
-  - データベース等がリセットされ、新しいFlagが生成される
+- **各Tickで**
+  - 全サーバが自動的に再起動される
+  - 新しいFlagが生成される
   - パッチが適用された最新のDockerイメージがデプロイされる
-    - **ビルドシステム!!**
+  - プレイヤーは他のチームに攻撃をする
+- これを繰り返す
 
-<div class="flex justify-center my-8">
+---
+
+# A&Dの攻防フロー (1): 攻撃
+
+1. **攻撃**: 他チームのサーバを攻撃
+2. **Flag奪取**: 脆弱性を突いてFlagを奪取
+3. **提出**: スコアサーバーに提出して得点
+
+<div class="flex justify-center items-start h-[600px] w-full scale-[3.0] origin-top">
 
 ```mermaid
 graph LR
-    Start((Start)) --> Init
-    subgraph Init [<b>Initialization</b>]
+    %% Corrected Three Towers Layout
+
+    subgraph RivalTeam ["他チーム"]
         direction TB
-        Restart[Restart Service]
-        Reset[Reset DB / Flag]
-        Deploy[Deploy Patch]
+        Rival((<b>他プレイヤー</b>))
+        RivalGit[Gitサーバ]
+        RivalServer[他チームサーバ]
+        Rival ~~~ RivalGit ~~~ RivalServer
     end
-    Init --> Battle[<b>Battle</b>]
-    Battle --> Score[<b>Scoring</b>]
-    Score --> Start
 
-    style Init fill:#f9f9f9,stroke:#333,stroke-width:1px
-    style Battle fill:#fee,stroke:#f66,stroke-width:2px
-    style Score fill:#eef,stroke:#66f,stroke-width:1px
+    subgraph MyTeam ["自チーム"]
+        direction TB
+        Player((<b>プレイヤー</b>))
+        Git[Gitサーバ]
+        Server[自チームサーバ]
+        Player ~~~ Git ~~~ Server
+    end
+
+    subgraph Ops ["運営インフラ"]
+        direction TB
+        Score[スコアサーバ]
+        Bot[SLA Bot]
+    end
+
+    %% Attack Flows
+    Player -->|1. 攻撃| RivalServer
+    RivalServer -.->|2. Flag奪取| Player
+    Player -->|3. 提出| Score
+
+    %% Patch Flows
+    Player -->|1. Push| Git
+    Git -->|2. Deploy| Server
+
+    %% Verify Flows
+    Bot -->|死活監視| Server
+    Bot -.->|死活監視| RivalServer
+
+    %% STRICT ALIGNMENT
+    Player ~~~ Score ~~~ Rival
+
+    classDef active fill:#fee,stroke:#f66,stroke-width:2px;
+    classDef inactive opacity:0.2;
+    classDef context opacity:0.4,stroke-dasharray: 5 5;
+    
+    class Player,RivalServer,Score active;
+    class Git,Bot,RivalGit,Rival,Server inactive;
+    
+    style MyTeam fill:#f0fff4,stroke:#bfb,stroke-dasharray: 5 5
+    style Ops fill:#f5faff,stroke:#cce,stroke-dasharray: 5 5
+    style RivalTeam fill:#fff5f5,stroke:#fcc,stroke-dasharray: 5 5
+
+    %% Active: Attack
+    linkStyle 4,5,6 stroke:#f66,stroke-width:2px;
+
+    %% Inactive: Others
+    linkStyle 0,1,2,3,7,8,9,10 opacity:0.1,color:silver;
 ```
-
 </div>
 
-<div class="mt-8 p-4 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 rounded-lg flex gap-4 items-center">
-  <div class="text-2xl">⚠️</div>
-  <div>
-    <strong>永続化されない</strong><br>
-    コンテナ内のファイル変更は、次のTickでリセットされます。<br>
-    永続的な修正は必ず <code>git push</code> で行う必要があります。
-  </div>
+---
+
+# A&Dの攻防フロー (2): 修正と反映
+
+1. **修正**: 修正したコードをGitリポジトリににPush
+2. **反映**: 自動でサーバにデプロイされる
+    - !!!ビルドシステム!!!
+
+<div class="flex justify-center items-start h-[600px] w-full scale-[3.0] origin-top">
+
+```mermaid
+graph LR
+    %% Corrected Three Towers Layout
+
+    subgraph RivalTeam ["他チーム"]
+        direction TB
+        Rival((<b>他プレイヤー</b>))
+        RivalGit[Gitサーバ]
+        RivalServer[他チームサーバ]
+        Rival ~~~ RivalGit ~~~ RivalServer
+    end
+
+    subgraph MyTeam ["自チーム"]
+        direction TB
+        Player((<b>プレイヤー</b>))
+        Git[Gitサーバ]
+        Server[自チームサーバ]
+        Player ~~~ Git ~~~ Server
+    end
+
+    subgraph Ops ["運営インフラ"]
+        direction TB
+        Score[スコアサーバ]
+        Bot[SLA Bot]
+    end
+
+    %% Attack Flows
+    Player -->|1. 攻撃| RivalServer
+    RivalServer -.->|2. Flag奪取| Player
+    Player -->|3. 提出| Score
+
+    %% Patch Flows
+    Player -->|1. Push| Git
+    Git -->|2. Deploy| Server
+
+    %% Verify Flows
+    Bot -->|死活監視| Server
+    Bot -.->|死活監視| RivalServer
+
+    %% STRICT ALIGNMENT
+    Player ~~~ Score ~~~ Rival
+
+    classDef active fill:#fee,stroke:#f66,stroke-width:2px;
+    classDef inactive opacity:0.2;
+    classDef context opacity:0.4,stroke-dasharray: 5 5;
+    
+    class Player,Git,Server active;
+    class Bot,Score,RivalGit,RivalServer,Rival inactive;
+    
+    style MyTeam fill:#f0fff4,stroke:#bfb,stroke-dasharray: 5 5
+    style Ops fill:#f5faff,stroke:#cce,stroke-dasharray: 5 5
+    style RivalTeam fill:#fff5f5,stroke:#fcc,stroke-dasharray: 5 5
+
+    %% Active: Patch
+    linkStyle 7,8 stroke:#f66,stroke-width:2px;
+
+    %% Inactive: Others
+    linkStyle 0,1,2,3,4,5,6,9,10 opacity:0.1,color:silver;
+```
+</div>
+
+---
+
+# A&Dの攻防フロー (3): 再起動、SLAチェック
+
+1. **再起動**: ラウンドごとに全チームのサーバを再起動
+2. **FLAG更新**: FLAGも新しいものに入れ替え
+2. **SLAチェック**: Botがサーバを巡回し、正常性をチェック
+
+<div class="flex justify-center items-start h-[600px] w-full scale-[3.0] origin-top">
+
+```mermaid
+graph LR
+    %% Corrected Three Towers Layout
+
+    subgraph RivalTeam ["他チーム"]
+        direction TB
+        Rival((<b>他プレイヤー</b>))
+        RivalGit[Gitサーバ]
+        RivalServer[他チームサーバ<br>（再起動）]
+        Rival ~~~ RivalGit ~~~ RivalServer
+    end
+
+    subgraph MyTeam ["自チーム"]
+        direction TB
+        Player((<b>プレイヤー</b>))
+        Git[Gitサーバ]
+        Server[自チームサーバ<br>（再起動）]
+        Player ~~~ Git ~~~ Server
+    end
+
+    subgraph Ops ["運営インフラ"]
+        direction TB
+        Score[スコアサーバ]
+        Bot[SLA Bot]
+    end
+
+    %% Attack Flows
+    Player -->|1. 攻撃| RivalServer
+    RivalServer -.->|2. Flag奪取| Player
+    Player -->|3. 提出| Score
+
+    %% Patch Flows
+    Player -->|1. Push| Git
+    Git -->|2. Deploy| Server
+
+    %% Verify Flows
+    Bot -->|死活監視| Server
+    Bot -->|死活監視| RivalServer
+
+    %% STRICT ALIGNMENT
+    Player ~~~ Score ~~~ Rival
+
+    classDef active fill:#fee,stroke:#f66,stroke-width:2px;
+    classDef inactive opacity:0.2;
+    classDef context opacity:0.4,stroke-dasharray: 5 5;
+    
+    class Bot,Server,RivalServer active;
+    class Git,RivalGit,Rival,Player,Score inactive;
+    
+    style MyTeam fill:#f0fff4,stroke:#bfb,stroke-dasharray: 5 5
+    style Ops fill:#f5faff,stroke:#cce,stroke-dasharray: 5 5
+    style RivalTeam fill:#fff5f5,stroke:#fcc,stroke-dasharray: 5 5
+
+    %% Active: Verify
+    linkStyle 9,10 stroke:#f66,stroke-width:2px;
+
+    %% Inactive: Others
+    linkStyle 0,1,2,3,4,5,6,7,8 opacity:0.1,color:silver;
+```
 </div>
 
 ---
