@@ -42,8 +42,8 @@ layout: intro
 
 - **経歴**
   - 2010年 セキュリティ&プログラミングキャンプ卒業
-  - 2018年～ LINE株式会社 アプリケーションセキュリティチーム
-  - 2020年～ GMOサイバーセキュリティ byイエラエ株式会社 高度診断部
+  - 2018年～ LINE株式会社
+  - 2020年～ GMOサイバーセキュリティ byイエラエ株式会社
 - **CTF**
   - **Player**: DEF CON CTF, Google CTF Finals 出場, SECCON CTF 13 Finals 優勝等
   - **Organizer**: ICC Tokyo 2025, CODE BLUE CTF等
@@ -93,6 +93,36 @@ class: text-center
 
 ---
 
+# 世界の代表的な A&D CTF
+
+ICC以外にも、世界中でAttack & Defense形式のCTFが開催されています。
+
+<div class="grid grid-cols-2 gap-8 mt-8">
+
+<div class="bg-black/5 dark:bg-white/5 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+
+### DEF CON CTF
+
+- 世界最高峰のハッキング大会
+- ラスベガスで毎年開催される決勝戦は伝統的にA&D形式
+- 独自アーキテクチャや未知の脆弱性が飛び交う
+
+</div>
+
+<div class="bg-black/5 dark:bg-white/5 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+
+### HITCON CTF
+
+- 台湾で開催されるCTF
+- A&Dのクオリティが非常に高く、世界中のトップチームが参加
+- Web, Pwn, Cryptoなどバランスの良い出題
+
+</div>
+
+</div>
+
+---
+
 # ICC (International Cybersecurity Challenge) とは？
 
 <div class="grid grid-cols-[1.3fr_1fr] gap-8 mt-8 items-center">
@@ -129,6 +159,13 @@ class: text-center
 </div>
 
 ---
+layout: center
+class: text-center
+---
+
+# A&Dのゲーム設計について（ICC版）
+
+---
 
 # ICCにおける Attack & Defense
 
@@ -138,89 +175,19 @@ class: text-center
 
 ### <span class="text-red-500">Attack</span> & <span class="text-blue-500">Defense</span>
 
-- **全チームに同じ「脆弱な環境」が配布される**
-- 自軍の穴を塞ぎつつ(Patch)、他チームを攻撃(Exploit)
-
-<div class="mt-6">
-
-### オペレーションの極限
-
-- **「パッチを当てたらサービスが止まった」**
-  - 可用性(Availability)チェックが通らず減点
-- **「防御に時間をかけすぎて攻撃の手が回らない」**
-  - 攻防のリソース配分と意思決定のスピード勝負
-
-</div>
-
+- 全チームに同じ「脆弱なサーバ環境」が配布され、自サーバを運用（防御）しつつ他チームを攻撃し合う
+- 5分に1回のサイクルで進行
+  - 5分ごとにサーバ再起動、新FLAGの配置、最新パッチの適用が行われる
+- 勝負のカギ
+  - ⚔️ 攻撃: 脆弱性を見つけて攻略する
+  - 🛡️ 防御: 攻撃される前に素早く脆弱性を修正する
 </div>
 
 <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-xl border border-gray-100 dark:border-gray-700 flex items-center justify-center">
-  <div class="text-center">
-    <div class="text-5xl mb-4">⚖️</div>
-    <h3 class="font-bold text-lg mb-2">SLA vs Security</h3>
-    <p class="opacity-80">
-      動かし続けなければならない。<br>
-      しかし、守らなければならない。
-    </p>
-    <div class="mt-4 text-xs opacity-60">
-      このジレンマこそが<br>A&Dの醍醐味であり本質
-    </div>
-  </div>
+  写真 & スコアボード
 </div>
 
 </div>
-
----
-
-# 世界の代表的な A&D CTF
-
-ICC以外にも、世界中でAttack & Defense形式のCTFが開催されています。
-
-<div class="grid grid-cols-2 gap-8 mt-8">
-
-<div class="bg-black/5 dark:bg-white/5 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-
-### DEF CON CTF
-
-- **世界最高峰**のハッキング大会
-- ラスベガスで毎年開催される決勝戦は伝統的にA&D形式
-- 独自アーキテクチャや未知の脆弱性が飛び交う
-
-</div>
-
-<div class="bg-black/5 dark:bg-white/5 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-
-### HITCON CTF
-
-- 台湾で開催されるハイレベルなCTF
-- A&Dのクオリティが非常に高く、世界中のトップチームが参加
-- Web, Pwn, Cryptoなどバランスの良い出題
-
-</div>
-
-</div>
-
----
-
-# 攻撃者の視点 (Attacker)
-
-脆弱性を見つけ、他チームを攻撃してFLAGを奪取する
-
-- 配布されたソースコードを読み解く
-- Fuzzingなどで実際にデータを送って挙動を確認
-- Exploitを作成して他チームのサーバーに投下
-- FLAGを取得してスコアサーバーに提出
-
----
-
-# 防御者の視点 (Defender)
-
-自軍のサーバーを守り、攻撃を検知して修正する
-
-- 脆弱性を塞ぐ（サービスを壊さないように慎重に）
-- パケットキャプチャやログを監視する
-- 敵の攻撃パケットは「答え」でもある
-- SLAを維持しながら、攻撃を分析して反撃の糸口を探る
 
 ---
 
@@ -272,6 +239,54 @@ graph TD
   - パッチが適用された最新のDockerイメージがデプロイされる
   - プレイヤーは他のチームに攻撃をする
 - これを繰り返す
+
+---
+
+# スコアリング詳細
+
+**Total Score = Initial Score + SLA + Defense + Attack**
+
+<div class="grid grid-cols-3 gap-4 mt-8">
+
+<div class="p-4 border rounded-lg border-blue-200 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-800">
+  <h3 class="text-blue-600 dark:text-blue-400 font-bold mb-2">🟢 SLA (Availability)</h3>
+  <div class="text-sm">
+    サービスが正常に稼働しているか？
+    <br><br>
+    Botが正常性をチェック。<br>
+    <strong>Downすると減点。</strong><br>
+    パッチで機能を壊さないように注意！
+  </div>
+</div>
+
+<div class="p-4 border rounded-lg border-green-200 bg-green-50 dark:bg-green-900/20 dark:border-green-800">
+  <h3 class="text-green-600 dark:text-green-400 font-bold mb-2">🛡️ Defense</h3>
+  <div class="text-sm">
+    Flagを守り切れたか？
+    <br><br>
+    そのTickで、誰にもFlagを盗まれなければ防御成功。<br>
+    <strong>1チームでも盗まれると0点。</strong>
+  </div>
+</div>
+
+<div class="p-4 border rounded-lg border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800">
+  <h3 class="text-red-600 dark:text-red-400 font-bold mb-2">⚔️ Attack</h3>
+  <div class="text-sm">
+    他チームからFlagを奪ったか？
+    <br><br>
+    防御に失敗したチームの点数(Defense点)がプールされ、<br>
+    <strong>成功した攻撃チームで山分け。</strong>
+  </div>
+</div>
+
+</div>
+
+---
+layout: center
+class: text-center
+---
+
+# 各プレイヤーの（大まかな）アクション
 
 ---
 
@@ -342,6 +357,43 @@ graph LR
     %% Inactive: Others
     linkStyle 0,1,2,3,7,8,9,10 opacity:0.1,color:silver;
 ```
+</div>
+
+---
+
+# 攻撃者の視点
+
+脆弱性を見つけ、他チームを攻撃してFLAGを奪取する
+
+- 配布されたソースコードを読み解く
+- Exploitを作成して他チームのサーバーに投下
+- FLAGを取得してスコアサーバーに提出
+
+TODO: 攻撃の様子
+
+---
+
+# 攻撃とFlag提出
+
+他チームのサービスの脆弱性を突き、Flagを取得したら提出します。
+
+### Flagの形式
+`ICC{...}` のような文字列（サービスごとに異なる場合があります）
+
+### Flagの提出
+APIサーバーに `curl` 等で送信します。
+
+```bash
+curl --json '{"flags":["ICC{THIS_IS_A_FLAG}"]}' \
+ -H "Authorization: Bearer <TEAM_API_KEY>" \
+ https://icc-ad.ierae-zero.day/core.v1.FrontendService/SubmitFlags
+```
+
+<div class="mt-4">
+  <ul>
+    <li>自分自身のFlagを提出しても点数にはなりません（STATUS_OWNFLAG）</li>
+    <li>古いTickのFlagは無効です（STATUS_EXPIRED）</li>
+  </ul>
 </div>
 
 ---
@@ -488,44 +540,16 @@ graph LR
 
 ---
 
-# スコアリング詳細
+# 防御者の視点
 
-**Total Score = Initial Score + SLA + Defense + Attack**
+自軍のサーバーを守り、攻撃を検知して修正する
 
-<div class="grid grid-cols-3 gap-4 mt-8">
+- 脆弱性を塞ぐ（サービスを壊さないように慎重に）
+- パケットキャプチャやログを監視する
+    - 敵の攻撃パケットは「答え」でもある
+    - SLAを維持しながら、攻撃を分析して反撃の糸口を探る
 
-<div class="p-4 border rounded-lg border-blue-200 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-800">
-  <h3 class="text-blue-600 dark:text-blue-400 font-bold mb-2">🟢 SLA (Availability)</h3>
-  <div class="text-sm">
-    サービスが正常に稼働しているか？
-    <br><br>
-    Botが正常性をチェック。<br>
-    <strong>Downすると減点。</strong><br>
-    パッチで機能を壊さないように注意！
-  </div>
-</div>
-
-<div class="p-4 border rounded-lg border-green-200 bg-green-50 dark:bg-green-900/20 dark:border-green-800">
-  <h3 class="text-green-600 dark:text-green-400 font-bold mb-2">🛡️ Defense</h3>
-  <div class="text-sm">
-    Flagを守り切れたか？
-    <br><br>
-    そのTickで、誰にもFlagを盗まれなければ防御成功。<br>
-    <strong>1チームでも盗まれると0点。</strong>
-  </div>
-</div>
-
-<div class="p-4 border rounded-lg border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800">
-  <h3 class="text-red-600 dark:text-red-400 font-bold mb-2">⚔️ Attack</h3>
-  <div class="text-sm">
-    他チームからFlagを奪ったか？
-    <br><br>
-    防御に失敗したチームの点数(Defense点)がプールされ、<br>
-    <strong>成功した攻撃チームで山分け。</strong>
-  </div>
-</div>
-
-</div>
+TODO: 防御の様子(pcapとか)
 
 ---
 
@@ -549,31 +573,6 @@ graph LR
 
 <div class="mt-4 text-xs opacity-60">
   ※ Push後、ビルドとデプロイに数分かかります。Build Historyページで成否を確認してください。
-</div>
-
----
-
-# 攻撃とFlag提出
-
-他チームのサービスの脆弱性を突き、Flagを取得したら提出します。
-
-### Flagの形式
-`ICC{...}` のような文字列（サービスごとに異なる場合があります）
-
-### Flagの提出
-APIサーバーに `curl` 等で送信します。
-
-```bash
-curl --json '{"flags":["ICC{THIS_IS_A_FLAG}"]}' \
- -H "Authorization: Bearer <TEAM_API_KEY>" \
- https://icc-ad.ierae-zero.day/core.v1.FrontendService/SubmitFlags
-```
-
-<div class="mt-4">
-  <ul>
-    <li>自分自身のFlagを提出しても点数にはなりません（STATUS_OWNFLAG）</li>
-    <li>古いTickのFlagは無効です（STATUS_EXPIRED）</li>
-  </ul>
 </div>
 
 ---
