@@ -202,51 +202,14 @@ class: text-center
 ### <span class="text-red-500">Attack</span> & <span class="text-blue-500">Defense</span>
 
 - 全チームに同じ「脆弱なサーバ環境」が配布され、サーバを運用（防御）しつつ他チームを攻撃し合う
-- 5分に1回のサイクルで進行
-  - 5分ごとにサーバ再起動、新FLAGの配置、最新パッチの適用（デプロイ！）が行われる
 - 勝負のカギ
   - ⚔️ 攻撃: 脆弱性を見つけて攻略する
   - 🛡️ 防御: 攻撃される前に素早く脆弱性を修正する
 </div>
 
 <div class="rounded-lg aspect-video flex flex-col items-center justify-center text-gray-500">
-  <div class="mb-2"><img src="./images/icc-flag.png"></div>
   <div class="mb-2"><img src="./images/icc-ad.png"></div>
   <div class="text-xs">出典: <a href="https://www.youtube.com/watch?v=qAqhfy9eBUg" target="_blank">https://www.youtube.com/watch?v=qAqhfy9eBUg</a></div>
-</div>
-
-</div>
-
----
-
-# 競技環境のアーキテクチャ
-
-<div class="grid grid-cols-2 gap-8 mt-8 items-start">
-
-<div>
-
-### ネットワーク構成
-
-- **VPN接続**: WireGuardで接続
-- **セグメント分離**:
-  - `10.3.x.x`: **本番環境 (Production)**
-    - 他チームから攻撃される
-    - Flagが存在
-  - `10.4.x.x`: **検証環境 (Staging)**
-    - 自チームのみアクセス可能
-    - パッチの動作確認用（Flagはダミー）
-
-</div>
-
-<div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 text-sm">
-
-```mermaid
-graph TD
-    Player[Player] --> VPN
-    VPN --> |攻撃| Prod[他チームの環境<br>10.3.x.x]
-    VPN --> |検証環境| Staging[自チームの検証環境<br>10.4.x.x]
-```
-
 </div>
 
 </div>
@@ -260,10 +223,41 @@ graph TD
 - **5分で 1 Tick 進行**
 - **各Tickで**
   - 全サーバが自動的に再起動される
+    - パッチが適用された最新のDockerイメージで起動
   - 新しいFlagが生成される
-  - パッチが適用された最新のDockerイメージがデプロイされる
-  - プレイヤーは他のチームに攻撃をする
+  - プレイヤーは他のチームに攻撃
+  - Botがサーバが正常に起動しているか確認
 - これを繰り返す
+
+---
+
+# A&Dの攻防フロー (1): 攻撃
+
+1. **攻撃**: 他チームのサーバを攻撃
+2. **Flag奪取**: 脆弱性を突いてFlagを奪取
+3. **提出**: スコアサーバーに提出して得点
+
+![alt text](./images/flow-ad.png)
+
+---
+
+# A&Dの攻防フロー (2): パッチ
+
+1. **修正**: 脆弱性を修正したコードをGitリポジトリにPush
+2. **反映**: 自動でサーバにデプロイされる
+    - ビルドシステム！
+
+![alt text](./images/flow-ad-2.png)
+
+---
+
+# A&Dの攻防フロー (3): 再起動、SLAチェック
+
+1. **再起動**: ラウンドごとに全チームのサーバを再起動
+2. **FLAG更新**: FLAGも新しいものに入れ替え
+2. **SLAチェック**: Botがサーバを巡回し、正常性をチェック
+
+![alt text](./images/flow-ad-3.png)
 
 ---
 
@@ -315,16 +309,6 @@ class: text-center
 
 ---
 
-# A&Dの攻防フロー (1): 攻撃
-
-1. **攻撃**: 他チームのサーバを攻撃
-2. **Flag奪取**: 脆弱性を突いてFlagを奪取
-3. **提出**: スコアサーバーに提出して得点
-
-![alt text](./images/flow-ad.png)
-
----
-
 # 攻撃とFLAG提出
 
 脆弱性を見つけ、他チームを攻撃してFLAGを奪取する
@@ -349,26 +333,6 @@ class: text-center
 ---
 
 # 防御の視点
-
----
-
-# A&Dの攻防フロー (2): パッチ
-
-1. **修正**: 脆弱性を修正したコードをGitリポジトリににPush
-2. **反映**: 自動でサーバにデプロイされる
-    - ビルドシステム！
-
-![alt text](./images/flow-ad-2.png)
-
----
-
-# A&Dの攻防フロー (3): 再起動、SLAチェック
-
-1. **再起動**: ラウンドごとに全チームのサーバを再起動
-2. **FLAG更新**: FLAGも新しいものに入れ替え
-2. **SLAチェック**: Botがサーバを巡回し、正常性をチェック
-
-![alt text](./images/flow-ad-3.png)
 
 ---
 
