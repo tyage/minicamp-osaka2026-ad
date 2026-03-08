@@ -98,9 +98,26 @@ class: text-center
 </div>
 
 <div class="rounded-lg aspect-video flex flex-col items-center justify-center text-gray-500">
-  <div><img src="./image.png"></div>
+  <div><img src="./images/ctf-ad.png"></div>
   <div class="text-xs">出典: <a href="https://www.youtube.com/watch?v=RXgp4cDbiq4" target="_blank">https://www.youtube.com/watch?v=RXgp4cDbiq4</a></div>
 </div>
+
+</div>
+
+---
+
+# なぜA&Dなのか
+
+<div class="mt-8 space-y-6">
+
+- **実際のインシデントに近い環境**
+  - 単に攻撃するだけでなく、**「稼働させながら直す」「攻撃を観測して学ぶ」** 実践力が求められる
+- **攻防両方の視点 (Purple Teaming)**
+  - 攻撃と防御、両方の弱点や難しさを理解することで、より深い知見が得られる
+- **チームとしての戦略・マネジメント**
+  - 「誰が何を直すか」「いつパッチを当てるか」など、リソース配分や役割分担がカギ
+- **リアルタイムな攻防戦**
+  - 単なるパズル解きとは異なり、相手の動きに合わせた臨機応変な対応が求められる
 
 </div>
 
@@ -144,7 +161,7 @@ class: text-center
 </div>
 
 <div class="rounded-lg aspect-video flex flex-col items-center justify-center text-gray-500">
-  <div><img src="./IMG_6779.jpg" alt="HITCON CTF 2023" /></div>
+  <div><img src="./images/hitcon.jpg" alt="HITCON CTF 2023" /></div>
 </div>
 
 </div>
