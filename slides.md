@@ -98,8 +98,10 @@ class: text-center
 </div>
 
 <div class="rounded-lg aspect-video flex flex-col items-center justify-center text-gray-500">
-  <div><img src="./images/ctf-ad.png"></div>
-  <div class="text-xs">出典: <a href="https://www.youtube.com/watch?v=RXgp4cDbiq4" target="_blank">https://www.youtube.com/watch?v=RXgp4cDbiq4</a></div>
+  <div><img src="./images/seccon.png"></div>
+  <div class="text-xs mb-3">SECCON 全国大会 2012年度（初回）</div>
+  <div><img src="./images/hackceler8.png"></div>
+  <div class="text-xs">Google Hackceler8</div>
 </div>
 
 </div>
@@ -108,16 +110,20 @@ class: text-center
 
 # なぜA&Dなのか
 
-<div class="mt-8 space-y-6">
+<div class="grid grid-cols-[1.4fr_1fr] gap-8 mt-8 items-center">
 
-- **実際のインシデントに近い環境**
+- **攻撃・防御・運用をすべて自分たちでこなす**
   - 単に攻撃するだけでなく、**「稼働させながら直す」「攻撃を観測して学ぶ」** 実践力が求められる
-- **攻防両方の視点 (Purple Teaming)**
-  - 攻撃と防御、両方の弱点や難しさを理解することで、より深い知見が得られる
+  - 攻撃と防御、両方の視点が得られる
 - **チームとしての戦略・マネジメント**
-  - 「誰が何を直すか」「いつパッチを当てるか」など、リソース配分や役割分担がカギ
+  - 「誰が何を直すか」「いつパッチを当てるか」など、リソース配分や役割分担も必要
 - **リアルタイムな攻防戦**
   - 単なるパズル解きとは異なり、相手の動きに合わせた臨機応変な対応が求められる
+
+<div class="rounded-lg aspect-video flex flex-col items-center justify-center text-gray-500">
+  <div><img src="./images/nco-ad.png"></div>
+  <div class="text-xs mb-3">出典: <a href="https://icctokyo2025.nisc.go.jp/ctf/">https://icctokyo2025.nisc.go.jp/ctf/</a></div>
+</div>
 
 </div>
 
@@ -162,6 +168,7 @@ class: text-center
 
 <div class="rounded-lg aspect-video flex flex-col items-center justify-center text-gray-500">
   <div><img src="./images/hitcon.jpg" alt="HITCON CTF 2023" /></div>
+  <div class="text-xs">HITCON CTF 2023</div>
 </div>
 
 </div>
