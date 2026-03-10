@@ -175,7 +175,7 @@ class: text-center
 
 ---
 
-# ICC (International Cybersecurity Challenge) とは？
+# ICC (International Cybersecurity Challenge) 
 
 <div class="grid grid-cols-[1.3fr_1fr] gap-8 mt-8 items-center">
 
@@ -388,7 +388,7 @@ git push
 - パケットキャプチャやログの監視も重要
     - 敵の攻撃パケットは「答え」でもある
     - 攻撃を分析して反撃の糸口を探る
-- ICCでは他のチームが送信したパケットがチームに公開される
+- ICCでは他のチームが送信したパケットがチームに公開される形式
 
 
 <div class="w-2/3 mx-auto">
@@ -405,42 +405,118 @@ class: text-center
 
 ---
 
-# A&D チュートリアル：はじめの一歩
+# チーム分け
 
-これから実際に環境を触ってみましょう。以下の手順で進めます：
+テーブルでチーム分けを行います
 
-1. **ポータルにアクセス**: チーム情報や問題情報を確認
-2. **ソースコードを取得**: `git clone` で手元に持ってくる
-3. **サーバーにアクセス**: ブラウザや `curl` で動作確認
-4. **攻撃 (Exploit)**: 他チームからFLAGを奪う
-5. **FLAG提出**: スコアサーバーに送って得点
-6. **パッチ適用**: 脆弱性を修正して守る
+| 番号| チーム名  | メンバー |
+| --- | --- | --- |
+| 1 | アライグマ |  |
+| 2 | イヌ |  |
+| 3 | ウサギ |  |
+| 4 | エビ |  |
+| 5 | オオカミ |  |
+| 6 | カメ |  |
+| 7 | キツネ |  |
+
+---
+
+# A&D チュートリアル
+
+以下の手順で進めます：
+
+1. **ソフトウェアのインストール**: 必要なツールの準備
+2. **スコアボードにアクセス**: 問題情報やスコアボードを確認
+3. **VPN接続**: WireGuardで競技環境に接続
+4. **ソースコードを取得**: `git clone` で手元に持ってくる
+5. **サーバーにアクセス**: ブラウザや `curl` で動作確認
+6. **攻撃 (Exploit)**: 他チームからFLAGを奪う
+7. **FLAG提出**: スコアサーバーに送って得点
+8. **パッチ適用**: 脆弱性を修正して守る
 
 （※ハンズオン環境では、実際の競技環境よりもチート対策やプラットフォームのセキュリティが緩いため、そのあたりはお手柔らかにお願いします🙏）
 
 ---
 
-# ステップ1：ポータルにアクセス
+# ステップ1：ソフトウェアのインストール
 
-まずは競技の全体像を把握しましょう。
-
-- **URL**: `http://10.2.1.1/` (例)
-- **ログイン**: 配布されたアカウントを使用
-- **確認すること**:
-  - **スコアボード**: 現在の順位と各チームの状態（SLA稼働状況）
-  - **チーム情報**: 自分のチームの `API TOKEN` や、GitのURL
-  - **問題の接続先**: 各問題のIPアドレスとポート番号
+- WireGuard: https://www.wireguard.com/install/
+  - VPNクライアント
+- Wireshark: https://www.wireshark.org/
+  - パケットキャプチャツール
+- Docker: https://www.docker.com/
+  - 仮想環境の構築
+- git: https://git-scm.com/
+  - ソースコード管理
 
 ---
 
-# ステップ2：ソースコードを取得
+# ステップ2：スコアボードにアクセス
+
+kintoneにチームごとのパスワードを配布します。スコアボードにアクセスしてみましょう。
+
+<div class="grid grid-cols-[1.4fr_1fr] gap-12 mt-8 items-center">
+
+<div>
+
+- **URL**: `http://minicamp.mocos.kitchen/`
+  - **Challenges**: 各問題のIPアドレスとソースコードのURL
+  - **Scoreboard**: 現在の順位と各チームの状態
+  - **My Team**:
+    - **DEPLOYMENTS**: 自分のサーバーの状態
+    - **SLA HISTORIES**: SLAの結果
+    - **BUILD HISTORIES**: パッチのビルド状況
+    - **PCAP**: 攻撃パケットのキャプチャデータ
+    - **WIREGUARD CONFIG**: VPN接続の設定ファイル
+
+</div>
+
+<div class="rounded-lg aspect-video flex flex-col items-center justify-center text-gray-500">
+  <div class="mb-2"><img src="./images/scoreboard.png"></div>
+  <div class="mb-2"><img src="./images/build-histories.png"></div>
+</div>
+
+</div>
+
+---
+
+# ステップ3：VPN接続
+
+- WIREGUARD CONFIGから設定ファイルをダウンロード
+
+<img src="./images/scoreboard-wireguard.png" alt="WireGuard Config" class="mx-auto mt-2 mb-2 rounded-lg border border-gray-200 shadow-md w-full max-w-sm">
+
+- WireGuardクライアントにインポート→有効にして接続
+
+<div class="flex gap-4 mt-2 justify-center">
+<img src="./images/wireguard1.png" alt="WireGuard Connection" class="rounded-lg border border-gray-200 shadow-md w-1/3">
+<img src="./images/wireguard2.png" alt="WireGuard Connection" class="rounded-lg border border-gray-200 shadow-md w-1/3">
+<img src="./images/wireguard3.png" alt="WireGuard Connection" class="rounded-lg border border-gray-200 shadow-md w-1/3">
+</div>
+
+---
+
+# ステップ3：VPN接続
+
+競技ネットワークに接続できたか確認してみましょう
+
+- Challengesページに2つのURLが記載されているはずです
+  - 10.3.x.1: 各チームの問題サーバ
+    - x = チーム番号（1-7）
+  - 10.2.0.2: Gitリポジトリのサーバ
+- ブラウザで `http://10.3.7.1/` にアクセスしてみましょう
+
+
+---
+
+# ステップ3：ソースコードを取得
 
 自分の守るべきサービスの「中身」を手に入れます。
 
-- ポータル記載のURLから `git clone`
+- ChallengeページのURLを使って `git clone`
   ```bash
-  git clone http://10.2.1.x/challenges/pwn-sample.git
-  cd pwn-sample
+  git clone http://*****:10.2.0.2/team-***/web-juice-todo.git
+  cd web-juice-todo
   ```
 - **中身を確認**:
   - `patchable/`: ここを編集してパッチを当てる
