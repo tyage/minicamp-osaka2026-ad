@@ -9,13 +9,9 @@ title: Web Application A&D Exercise
 author: Keitaro Yamazaki
 ---
 
-# Web Application Attack & Defense
+# Attack & Defense形式のCTFでリアルタイムの攻防戦を体験してみよう
 
 <div class="text-2xl font-bold opacity-80">
-  Attack & Defense形式のCTFでリアルタイムの攻防戦を体験してみよう
-</div>
-
-<div class="mt-4 text-sm opacity-60">
   セキュリティ・キャンプ2026ミニ（大阪開催）
 </div>
 
