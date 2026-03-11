@@ -49,7 +49,7 @@ layout: intro
   - **Player**: SECCON CTF 13 Finals 優勝, DEF CON CTF, Google CTF Finals 出場等
   - **Organizer**: ICC Tokyo 2025, CODE BLUE CTF等
 - **著書**
-  - 「実践 Webペネトレーションテスト」
+  - 「実践 Webペネトレーションテスト」（オライリー・ジャパン、2025年）
 
 </div>
 </div>
