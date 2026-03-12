@@ -372,8 +372,7 @@ class: text-center
 脆弱性を探し、パッチを適用する
 
 - 配布されたファイルを読み解く
-- 脆弱性を塞ぐ
-    - ただし、サービスを壊さないように慎重に
+- サービスを壊さないように慎重にパッチ
 
 ```bash
 git add patchable/filter.py
@@ -381,8 +380,9 @@ git commit -m "Fix vulnerability"
 git push
 ```
 
-<div class="w-1/2 mx-auto">
+<div class="w-1/2 mx-auto text-center">
   <img src="./images/defense-animals.png">
+  <span class="text-sm text-gray-500 ">完璧な防御ができた状態</span>
 </div>
 
 
@@ -392,11 +392,9 @@ git push
 
 脆弱性が見つからなかったどうしようにもない？ → NO
 
-- パケットキャプチャやログの監視も重要
+- pcapファイル（ネットワーク上の通信の記録）が提供される
     - 敵の攻撃パケットは「答え」でもある
     - 攻撃を分析して反撃の糸口を探る
-- ICCでは他のチームが送信したパケットがチームに公開される形式
-
 
 <div class="w-2/3 mx-auto">
   <img src="./images/pcap.png">
@@ -648,9 +646,13 @@ SQLインジェクションを利用して、FLAGを奪取してみましょう
   - `compose.yml` や `Dockerfile` は編集してもpushできません
 - **SLAに注意**:
   - サービスが正常に動作していないと判断されると、SLA減点になります
-  - 機能を丸ごと削除したりしないようにしましょう
-  - トップページの表示内容をいじったりしても減点になるかもしれません...
-  - SLA結果はスコアボードの「My Team」→「SLA HISTORIES」で確認できます
+  - 出力をいじる、機能を削除すると減点になりやすいので注意
+- **ビルドの失敗に注意**:
+  - パッチをpushした後、ビルドが失敗すると反映されません
+  - 変更をたくさん加えた場合は、`docker compose up`で動作確認するのがおすすめです
+- **gitのconflictに注意**:
+  - 他のチームメンバーも同じファイルを修正していると、コミットが衝突することがあります
+  - 頑張って解決してください💪
 
 ---
 
