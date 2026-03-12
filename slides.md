@@ -462,35 +462,39 @@ class: text-center
 
 kintoneにチームごとのトークンを配布します。スコアボードにアクセスしてみましょう。
 
-<div class="grid grid-cols-[1.4fr_1fr] gap-12 mt-8 items-center">
-
-<div>
-
 - **URL**: `http://minicamp.mocos.kitchen/`
-  - **Challenges**: 各問題のIPアドレスとソースコードのURL
   - **Scoreboard**: 現在の順位と各チームの状態
+  - **Challenges**: 各問題のIPアドレスとソースコードのURL
   - **My Team**:
     - **DEPLOYMENTS**: 自分のサーバーの状態
     - **SLA HISTORIES**: SLAの結果
     - **BUILD HISTORIES**: パッチのビルド状況
-    - **PCAP**: 攻撃パケットのキャプチャデータ
-    - **WIREGUARD CONFIG**: VPN接続の設定ファイル
-
-</div>
-
-<div class="rounded-lg aspect-video flex flex-col items-center justify-center text-gray-500">
-  <div class="mb-2"><img src="./images/scoreboard.png"></div>
-  <div class="mb-2"><img src="./images/build-histories.png"></div>
-</div>
-
-</div>
+    - **PCAP**: 攻撃パケットのキャプチャデータダウンロード画面
+    - **WIREGUARD CONFIG**: VPN接続の設定ファイルダウンロード画面
 
 
 ---
 
 # ステップ2：スコアボードにアクセス
 
-TODO: 4つの画像をキャプション付きで貼る
+<div class="grid grid-cols-2 gap-4">
+  <div class="text-center">
+    <img src="./images/scoreboard.png" class="h-40 mx-auto" />
+    <p class="text-sm mt-1">スコアボード</p>
+  </div>
+  <div class="text-center">
+    <img src="./images/scoreboard-wireguard.png" class="h-40 mx-auto" />
+    <p class="text-sm mt-1">問題ページ</p>
+  </div>
+  <div class="text-center">
+    <img src="./images/sqli1.png" class="h-40 mx-auto" />
+    <p class="text-sm mt-1">デプロイ結果ページ</p>
+  </div>
+  <div class="text-center">
+    <img src="./images/sqli2.png" class="h-40 mx-auto" />
+    <p class="text-sm mt-1">SLA結果ページ</p>
+  </div>
+</div>
 
 
 ---
@@ -498,6 +502,8 @@ TODO: 4つの画像をキャプション付きで貼る
 # ステップ2：スコアボードにアクセス
 
 - スコアボードの読み方
+
+TODO: スコアボードの説明
 
 ---
 
