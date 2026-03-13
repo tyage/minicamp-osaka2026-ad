@@ -84,6 +84,7 @@ class: text-center
   - **Jeopardy（ジョパディ）形式**:
     - Web, Crypto, Pwn, Rev などカテゴリ別の問題を解く
     - 最も一般的
+    - tkbctf開催中 https://alpacahack.com/ctfs/tkbctf5
   - **Attack & Defense (A&D) 形式**:
     - チームごとに守るべきサーバー/サービスがある
     - 自チームを守りつつ、他チームを攻撃する
@@ -941,7 +942,34 @@ class: text-center
 
 ---
 
-# 過去のA&D問題例
+# ICC Tokyo 2025での問題例
+
+https://github.com/ctfplatform/icc-2025-ad-problems
+
+- CGI Panic
+  - Apacheの脆弱性やbuffer overflow等10個以上の脆弱性
+  - WAF(Web Application Firewall)のルールだけパッチできる
+- EC Junior
+  - XSSやMass Assignment等の脆弱性のあるECサイト
+  - WAFのルールだけパッチできる
+- Take Me Out
+  - プログラミングコンテストプラットフォーム
+  - ビルド・実行環境のsandbox escape等
+
+---
+
+# ICC Tokyo 2025での問題例
+
+https://github.com/ctfplatform/icc-2025-ad-problems
+
+
+- Time Shock
+  - 不正な署名を作成する暗号問題
+  - Padding Oracleとか
+- Umacorn
+  - x86-64 エミュレーション環境
+  - 任意の機械語を実行できるので、パスワード保護されたFLAGを盗む
+- 合計30個以上の脆弱性が存在
 
 
 ---
