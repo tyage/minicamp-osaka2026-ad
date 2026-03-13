@@ -747,55 +747,45 @@ class: text-center
 - PCAPからどんなことがわかりましたか？
 - SLAにイライラしましたか？
 - どんな戦略を立てましたか？
-- どんな失敗があったか？
+- どんな失敗がありましたか？
+
+---
+layout: center
+class: text-center
+---
+
+# よくあるA&Dの戦略について
 
 ---
 
-# 高度な攻防 (1): 情報の非対称性
+# A&Dの戦略 (1): チームの役割分担
+
+- 全体指揮
+- pcap監視係
+- 問題解析係
+- 攻撃ペイロード作成係
+- パッチ作成係
+- お茶くみ係
+
+---
+
+# A&Dの戦略 (2): 攻撃のリプレイ
 
 攻撃することは、脆弱性の場所を教えること
 
 - 攻撃パケットは防御側のログに残る
-- 上位チームの攻撃は、下位チームにとって「最高のお手本」となる
-- 攻撃者は、他のチームに検知されないよう慎重に攻撃する必要がある
-- 攻撃するほど、自分の手の内が相手に見える→「諸刃の剣」
-
----
-
-# 高度な攻防 (2): 攻撃の再利用 (Replay Attack)
-
-原理がわからなくても、攻撃はできる
-
-- 来たパケットをそのまま投げ返す
-- 脆弱性の詳細を知らなくても得点できてしまう
-- 会場全体に同じ攻撃が蔓延する（Replay Storm）
-
----
-
-# 高度な攻防 (3): 解析を拒む技術
-
-攻撃を隠し、解析を遅らせる
-
-- 通信を暗号化し、盗聴・ReplayされてもFLAGを守る
-- 偽の攻撃を大量に混ぜ、どれが本命か分からなくする
-- 終了間際まで攻撃を隠し持ち、パッチの時間を与えない
-
-ICCでもパケットがcaronteで表示されないようにしたチームがいた
-
-過去のDEF CONではWiresharkをクラッシュさせる0-dayを使ったチームも
+  - 攻撃するほど、自分の手の内が相手に見える諸刃の剣
+- 上位チームの攻撃は、下位チームにとって「最お手本」となる
+  - 来たパケットをそのまま投げ返せば、原理を知らなくてもFLAGが取れる
+  - → 会場全体に同じ攻撃が蔓延する
 
 ---
 
 # ネットワーク解析ツール
 
-A&D向けのトラフィック分析ツールが色々あります
+A&D向けのトラフィック分析ツール
 
 <div class="flex flex-col gap-4 mt-6">
-<div class="border border-gray-200 rounded-lg p-4 shadow-sm">
-<strong>caronte</strong><br>
-<span class="text-sm opacity-60">https://github.com/eciavatta/caronte</span><br>
-フローの分類・ルールベースの攻撃検出
-</div>
 <div class="border border-gray-200 rounded-lg p-4 shadow-sm">
 <strong>tulip</strong><br>
 <span class="text-sm opacity-60">https://github.com/OpenAttackDefenseTools/tulip</span><br>
@@ -806,42 +796,121 @@ A&D向けのトラフィック分析ツールが色々あります
 <span class="text-sm opacity-60">https://github.com/spq/pkappa2</span><br>
 高速なPCAP閲覧・タグ管理
 </div>
+<div class="border border-gray-200 rounded-lg p-4 shadow-sm">
+<strong>caronte</strong><br>
+<span class="text-sm opacity-60">https://github.com/eciavatta/caronte</span><br>
+フローの分類・ルールベースの攻撃検出
+</div>
 </div>
 
 ---
 
-# ネットワーク解析ツール: caronte
+# ネットワーク解析ツール: pkappa2
 
-<img src="./images/caronte.png" alt="caronte" class="mx-auto rounded-lg border border-gray-200 shadow-md max-h-96">
-
----
-
-# Player vs Organizer
-
-- 今回の環境ではSLAのパケットとほかチームのパケットをIPアドレスやTTL、RTTで区別できたかも
-  - 実際の競技環境では区別がつかないようにNATしたり間にプロキシを挟んだりする
-  - https://github.com/ctfplatform/simple-network-proxy
+<img src="./images/pkappa2.png" alt="pkappa2" class="mx-auto rounded-lg border border-gray-200 shadow-md max-h-96">
 
 ---
 
-# Player vs Organizer
+# A&Dの戦略 (3): 解析を拒む戦略
 
-> 「A&D は本質的に壊れていて、終わっている」
+攻撃を隠し、解析を遅らせる
 
-<div class="mt-4 text-xs opacity-60 break-all">
-  Reference: <a href="https://github.com/hugeh0ge/substitute-of-blog/blob/main/blog/2026-01-01-how-to-create-ad-ctf-problems_ja.md" target="_blank">https://github.com/hugeh0ge/substitute-of-blog/blob/main/blog/2026-01-01-how-to-create-ad-ctf-problems_ja.md</a>
+- 通信を暗号化し、盗聴・ReplayされてもFLAGを守る
+  - FLAGを暗号化して出力させるとか
+- 偽の攻撃を大量に混ぜ、どれが本命か分からなくする
+- ツールで解析させないようなパケットを送る
+  - ICCでもパケットがtulipで表示されないようにしたチームがいた
+    - tulipのTCPパーサが特定のサイズ以上のデータを無視する仕様を突いた模様
+  - 過去のDEF CONではWiresharkをクラッシュさせる0-dayを使ったチームも
+- 攻撃を送るチームを限定する
+  - 逆に、下位チームにだけ攻撃を送って真似させることで、上位チームの点数を下げるとか
+
+---
+
+# A&Dの戦略 (4): 防御を素早く行う
+
+- 脆弱性を見つけた場合でも、正確に素早くパッチを当てるのは難しい場合がある
+  - pcapから攻撃を見つけた場合は特に
+- 完璧なパッチを作る前に、攻撃を止めるための応急処置的なパッチを当てることも
+  - 攻撃側はそのパッチの抜け穴を狙う攻防戦が起こることも
+
+---
+layout: center
+class: text-center
+---
+
+# 運営の難しさ
+
+---
+
+# プレイヤー vs 運営
+
+- 実は脆弱性を修正しなくても、SLAだけを通して、攻撃を通さないようにできればよい
+  - 今回の環境では、SLAの通信と他チームの通信をIPアドレスやTTL、RTTで区別できてしまう
+    - SLAのIPアドレスだけ許可すれば、攻撃を完全にシャットアウトできてしまう
+  - SLAの送信するリクエストの特徴を分析すれば、攻撃と区別できてしまう
+    - 例えばUser-Agentヘッダが固定だとか
+- 運営側で取る対策
+  - ネットワーク上の特徴量で区別がつかないようにする
+    - 実際の競技環境ではNATやプロキシを挟んだりして対策しました
+    - https://github.com/ctfplatform/simple-network-proxy
+  - プレイヤーがパッチできる範囲を絞る
+  - SLAのリクエストにランダムな特徴を持たせる
+
+---
+
+# プレイヤー vs 運営
+
+- 他のチームのSLAをわざと落とす(DoS)ことができてしまうかもしれない
+  - サーバがめっちゃ重くなるリクエストを送る
+  - コネクションをたくさん貼る
+- 運営側で取る対策
+  - プレイヤーが送れるリクエストの数を制限する
+  - インフラ強化を頑張る💰️
+  - 監視して、DoSしているチームにペナルティを与える
+  - サンドボックス環境でリクエストを処理する
+  - SLAを送るサーバや各プレイヤーが触るサーバを分ける
+
+---
+
+# 「A&D は本質的に壊れていて、終わっている」
+
+> あなたがA&D CTFを開いた場合、99%、あなたは作問ミスをするし、システムは何らかのバグを発現させ、discordは作問ミスやバグに関するチケットに溢れ、まともにプレイ可能な競技にはなりません。
+
+<div class="mt-4 mb-4 text-xs opacity-60 break-all">
+  <a href="https://github.com/hugeh0ge/substitute-of-blog/blob/main/blog/2026-01-01-how-to-create-ad-ctf-problems_ja.md" target="_blank">https://github.com/hugeh0ge/substitute-of-blog/blob/main/blog/2026-01-01-how-to-create-ad-ctf-problems_ja.md</a>
 </div>
 
-### 良い問題を作るのは難しい
+- 失敗例 1.a.1. トランスパイルによるスーパーマンパッチ
+- 失敗例 1.a.2. "宿題"による崩壊
+- 失敗例 1.b.1. 過剰な権限によるフィルタリング
+- 失敗例 1.b.2. 統計的手法によるフィルタリング
+- 失敗例 1.b.3. Local Privilege Escalation
+- 失敗例 1.b.4. システム障害によるパッチの喪失
+- 失敗例 1.c.1. QEMUによるスーパーマンパッチ
+- 失敗例 1.c.2. クローンとプロキシによる防御
+- ...
 
-- 理想：脆弱性を見つけ、修正し、攻撃する
-- 現実：「反射神経ゲー」になりがち。修正が簡単すぎると差がつかない。難しすぎると誰も直せない。
+---
 
-### それでもA&Dをやる理由
+# 終わりに：それでもA&Dをやる理由
 
-- この「カオス」こそが現実のインシデント対応に近い
-- 理不尽な状況下での意思決定、リスク管理
-- 何より、燃える（楽しい）
+- とはいえ、これは本気で1位を取る競技の場合の話
+- 身内や学校でやる分には、ある程度目をつぶりながら楽しめるはず
+- 攻撃、防御、監視、自動化といった様々なスキルを総合的に鍛えられるし面白い
+  - より現実に近いスキルが身につく...かも？
+- 興味がある方は参加したり、開催してみてはいかがでしょうか？
+  - 公開されているCTFプラットフォーム
+    - https://github.com/enowars/bambictf
+    - https://github.com/Blackslashtech/glitch
+    - And more...?
+
+---
+layout: center
+class: text-center
+---
+
+# 付録
 
 ---
 
