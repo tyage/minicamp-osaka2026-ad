@@ -171,6 +171,32 @@ class: text-center
 
 ---
 
+# 世界の代表的な A&D CTF (番外編)
+## Cyber Grand Challenge (CGC)
+
+<div class="grid grid-cols-[1.2fr_1fr] gap-8 mt-8 items-center">
+
+<div>
+
+- DARPA（アメリカ国防総省の機関）が2016年に主催した自動化されたA&D CTF
+  - なんと優勝賞金2億円、構築費56億円！
+- 攻撃や防御をすべて自動化したAI同士が戦う
+- 優勝したMayhemはDEF CON CTFに人間に混ざって出場したものの、最下位
+- 余談: AIxCCという後継大会も最近開催
+  - AIで脆弱性を見つけてパッチするバトル
+  - 賞金総額30億円！
+
+</div>
+
+<div class="rounded-lg aspect-video flex flex-col items-center justify-center text-gray-500">
+  <div><img src="./images/defcon2016.png" alt="DEF CON CTF 2016" /></div>
+  <div class="text-xs">DEF CON CTF 2016</div>
+</div>
+
+</div>
+
+---
+
 # ICC (International Cybersecurity Challenge) 
 
 <div class="grid grid-cols-[1.3fr_1fr] gap-8 mt-8 items-center">
@@ -897,6 +923,7 @@ class: text-center
 
 - とはいえ、これは本気で1位を取る競技の場合の話
 - 身内や学校でやる分には、ある程度目をつぶりながら楽しめるはず
+- Cyber Grand ChallengeのようなAI同士を戦わせる形式も可能
 - 攻撃、防御、監視、自動化といった様々なスキルを総合的に鍛えられるし面白い
   - より現実に近いスキルが身につく...かも？
 - 興味がある方は参加したり、開催してみてはいかがでしょうか？
