@@ -448,7 +448,7 @@ class: text-center
 | 3 | ウサギ |  |
 | 4 | エビ |  |
 | 5 | オオカミ |  |
-| 6 | カメ |  |
+| 6 | カメ | 予備 |
 | 7 | キツネ | 確認用 |
 
 ---
@@ -962,7 +962,6 @@ https://github.com/ctfplatform/icc-2025-ad-problems
 
 https://github.com/ctfplatform/icc-2025-ad-problems
 
-
 - Time Shock
   - 不正な署名を作成する暗号問題
   - Padding Oracleとか
@@ -970,7 +969,6 @@ https://github.com/ctfplatform/icc-2025-ad-problems
   - x86-64 エミュレーション環境
   - 任意の機械語を実行できるので、パスワード保護されたFLAGを盗む
 - 合計30個以上の脆弱性が存在
-
 
 ---
 
