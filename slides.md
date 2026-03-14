@@ -1007,3 +1007,5 @@ https://github.com/ctfplatform/icc-2025-ad-problems
 
 - ICC A&D Platform 解説動画: https://www.youtube.com/watch?v=McQ83ltusCU
 - ICC A&D Platform ドキュメント: https://docs.google.com/document/d/1JqkriOo7p_zNRk87gA2VQNmRJoDTgTu2zDSLQSUS7uU/edit?usp=sharing
+- DEF CON CTF 2018 Finals https://www.youtube.com/watch?v=RXgp4cDbiq4
+- 【参加記】DEF CON CTFの決勝に出場したVTuber https://www.youtube.com/watch?v=GS9iGwDsBfM
