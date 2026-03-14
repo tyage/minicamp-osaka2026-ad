@@ -288,6 +288,7 @@ class: text-center
   - プレイヤーは他のチームに攻撃
   - Botがサーバが正常に起動しているか確認
 - これを繰り返す
+- 詳細なドキュメント: https://docs.google.com/document/d/1JqkriOo7p_zNRk87gA2VQNmRJoDTgTu2zDSLQSUS7uU/edit?usp=sharing
 
 ---
 
