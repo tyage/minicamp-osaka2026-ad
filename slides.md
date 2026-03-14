@@ -696,11 +696,28 @@ SQLインジェクションを利用して、FLAGを奪取してみましょう
 攻撃の痕跡は、ネットワーク上に残ります。パケットキャプチャを見てみましょう。
 
 - `.pcapng` ファイルは5分ごとに、5分前までのデータが提供されます
-- スコアボードの「My Team」→「PCAP」からダウンロードして、Wiresharkで開いてみましょう
+- スコアボードの「My Team」→「PCAP」からダウンロードしてみましょう
   - 自分のチームのサーバに送信されたパケットだけが入っています
   - ファイルの中身が空っぽだった人は、「キツネチーム」にログインしてダウンロードしてみてください
 
 <img src="./images/pcap-page.png" alt="PCAP File" class="mx-auto mt-4 mb-2 rounded-lg border border-gray-200 shadow-md w-full max-w-lg">
+
+---
+
+# ステップ8：パケットを観察する
+
+<img src="./images/wireshark-detail.png" alt="Wireshark" class="mx-auto mt-2 mb-2 rounded-lg w-full max-w-2xl">
+
+---
+
+# ステップ8：パケットを観察する
+
+- 送信元、送信先IPアドレスについて
+  - 10.5.x.y: プレイヤーのIPアドレス
+    - x = チームID
+    - y: Wireguardのファイル毎のID
+  - 10.3.x.1: サービスのIPアドレス
+    - x = チームID
 
 ---
 
@@ -748,6 +765,7 @@ class: text-center
   - **FLAGが2つ**あるので、両方submitするのを忘れずに！
   - 脆弱性自体は比較的簡単ですが、Webアプリケーションに慣れていないとちょっと大変かも
     - チームで相談しながら進めてください
+    - LLMも可ですが、前半20分くらいは自力でやってほしいかも（すぐ終わる懸念が...）
   - この問題のSLAのヒント: **どんな出力も変更しないほうがよいです**
 
 ---
